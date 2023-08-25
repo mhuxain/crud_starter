@@ -1,0 +1,23 @@
+{
+  "name": "PHP 7",
+  "dockerComposeFile": "../docker-compose.yml",
+  "workspaceFolder": "/workspace",
+  "service": "laravel.test",
+
+
+	// Uncomment the next line if you want to publish any ports.
+	"forwardPorts": [8000, 5173, 3306],
+  "portsAttributes": {
+		"8000": {
+			"label": "HTTP"
+		},
+		"5173": {
+			"label": "vite_dev"
+		},
+		"3306" : {
+			"label": "MySQL"
+		} 
+
+	}
+
+}
