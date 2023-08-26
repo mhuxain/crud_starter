@@ -19,7 +19,7 @@ class Person extends BaseModel
             'national_id' => ['required', 'regex:/^A\d{6}$/'],
             'dob' => [
                 'required',
-                // 'before:date'
+                'before:today'
             ],
         ];
     }
