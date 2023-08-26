@@ -38,4 +38,8 @@ class PersonController extends Controller
         return response()->json($createdModel, 201);
       }
 
+      function addAddress($personId, $addressId) {
+        return Person::findOrFail($personId)->addresses()->attach($addressId);
+      }
+
 }

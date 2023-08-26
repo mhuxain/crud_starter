@@ -16,16 +16,20 @@
     </qx-select>
   </q-form>
   <q-btn
+      v-if="!route.params.id"
       color="primary"
       label="Submit"
       @click="save"
     />
   <q-btn
+      v-else
       color="primary"
       label="Update"
       @click="update"
     />
-  {{state.formData}}
+    <hr />
+    {{state.formData}}
+  <hr />
   {{ state.validationErrors }}
 </div>
 </template>

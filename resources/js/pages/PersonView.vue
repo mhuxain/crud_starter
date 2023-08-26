@@ -1,15 +1,38 @@
 <template>
   <div>
     <ul>
-      <li>{{ state.formData.first_name}} </li>
-      <li>{{ state.formData.last_name}} </li>
+      <li>Name: {{ state.formData.first_name}} {{ state.formData.last_name}}</li>
       <li>{{ state.formData.dob}} </li>
-      <li>{{ state.formData.national_id}} </li>
+      <li>
+        <a :href="state.formData.national_id_url" target="_blank">
+        {{ state.formData.national_id}} 
+        </a>
+      </li>
     </ul>
-    {{ state.formData.national_id_url }}
-  
+
+    <hr />
+    Addresses
+    <div class="row">
+    <qx-select
+    class="col-6"
+      v-model="state.newAddess" 
+      options-url="/api/addresses"
+      option-label="label"
+      option-value="id"
+      emit-value
+      map-options
+
+    >
+    </qx-select><q-btn @click="addAddess()">Add</q-btn>
+  </div>
+    <ul>
+      <li v-for="address in state.formData.addresses" :key="address.id">
+        {{ address.house_name }}, {{ address.street }}
+        </li>
+    </ul>
+
+<hr />  
   {{state.formData}}
-  {{ state.validationErrors }}
 </div>
 </template>
 
@@ -23,7 +46,7 @@ import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
 const route = useRoute()
-const state = reactive({formData: {}, validationErrors: {}});
+const state = reactive({formData: {}, validationErrors: {}, newAddess: null});
 const refForm = ref(null)
 
 onMounted(async () => {
@@ -43,20 +66,10 @@ const attrs = (fieldName, label) => {
     error: !!state.validationErrors[fieldName],
   }
 }
-const save = async () => {
-  // refForm.validate()
-  let resp = await axios.post('/api/people', state.formData)
-  .catch(e => {
-    state.validationErrors = e.response.data.errors
-  })
-  if(resp) {
-    router.push({ name: 'people' })
-  }
-}
 
-const update = async () => {
+const addAddess = async () => {
   // refForm.validate()
-  let resp = await axios.put(`/api/people/${route.params.id}`, state.formData)
+  let resp = await axios.post(`/api/people/${route.params.id}/addresses/${state.newAddess}`)
   .catch(e => {
     state.validationErrors = e.response.data.errors
   })

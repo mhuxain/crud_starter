@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/people', \App\Http\Controllers\PersonController::class);
+Route::post('/people/{id}/addresses/{addressId}', [\App\Http\Controllers\PersonController::class, 'addAddress']);
 Route::resource('/addresses', \App\Http\Controllers\AddressController::class);
 Route::resource('/islands', \App\Http\Controllers\IslandController::class)->only(['index']);
 Route::post("/upload", [FileUploadController::class, 'upload']);
