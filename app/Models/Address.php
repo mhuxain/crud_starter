@@ -15,10 +15,18 @@ class Address extends BaseModel
         ];
     }
 
+    public function defaultIncludes() {
+        return ['island'];
+    }
+
     public function getLabelAttribute()
     {
 
         return $this->house_name.", ".$this->street;
 
+    }
+
+    function island() {
+        return $this->belongsTo(Island::class);
     }
 }

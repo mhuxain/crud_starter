@@ -11,9 +11,20 @@
     >
       <template v-slot:top>
         <h5 class="q-ma-sm q-pa-sm">Address</h5>
-        <q-btn color="primary" :disable="loading" label="Add new" to="/addresses/create" />
+        <q-btn color="primary" label="Add new" to="/addresses/create" />
         
       </template>
+
+      <template v-slot:body-cell-island="props">
+        <q-td
+        :props="props"
+      >
+          {{  props.row.island?.atoll }}. {{  props.row.island?.island_name }}
+
+      </q-td>
+      </template>
+
+
       <template v-slot:body-cell-action="props">
         <q-td
         :props="props"
@@ -52,8 +63,7 @@ import { onMounted, reactive } from 'vue';
 const columns = [
   { name: 'house_name', label: 'House name', field: 'house_name', sortable: true },
   { name: 'street', label: 'Street', field: 'street' },
-  { name: 'island', label: 'island', field: 'island' },
-  { name: 'atoll', label: 'atoll', field: 'atoll' },
+  { name: 'island', label: 'Atoll Island', field: 'island' },
   { name: 'action', label: 'Actions', field: 'action' },
 ]
 

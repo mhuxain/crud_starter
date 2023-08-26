@@ -11,7 +11,7 @@
 
     <template v-slot:top>
         <h5 class="q-ma-sm q-pa-sm">People</h5>
-        <q-btn color="primary" :disable="loading" label="Add new" to="/people/create" />
+        <q-btn color="primary" label="Add new" to="/people/create" />
         
       </template>
 
