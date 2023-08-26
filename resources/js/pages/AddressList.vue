@@ -61,7 +61,7 @@ import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 
 const columns = [
-  { name: 'house_name', label: 'House name', field: 'house_name', sortable: true },
+  { name: 'house_name', label: 'House name', field: 'house_name', sortable: true, align: 'left'},
   { name: 'street', label: 'Street', field: 'street' },
   { name: 'island', label: 'Atoll Island', field: 'island' },
   { name: 'action', label: 'Actions', field: 'action' },
