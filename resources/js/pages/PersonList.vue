@@ -86,11 +86,11 @@ import axios from 'axios';
 import { onMounted, reactive } from 'vue';
 
 const columns = [
-{ name: 'first_name', label: 'First Name', field: 'first_name', sortable: true },
-  { name: 'last_name', label: 'Last Name', field: 'last_name' },
+{ name: 'first_name', label: 'First Name', field: 'first_name', sortable: true, align: 'left'},
+  { name: 'last_name', label: 'Last Name', field: 'last_name', align: 'left'},
   { name: 'dob', label: 'Date of Birth', field: 'dob' },
   { name: 'national_id', label: 'National Id', field: 'national_id' },
-  { name: 'address', label: 'Address', field: 'address' },
+  { name: 'address', label: 'Address', field: 'address', align: 'left'},
   { name: 'action', label: 'Actions', field: 'action' },
 ]
 
