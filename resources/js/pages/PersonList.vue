@@ -84,6 +84,9 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router'
+const $router = useRouter()
+const route = useRoute()
 
 const columns = [
 { name: 'first_name', label: 'First Name', field: 'first_name', sortable: true, align: 'left'},
@@ -99,12 +102,18 @@ const state = reactive({ rows: [] })
 const deleteData = async ({id}) => {
   await axios.delete(`/api/people/${id}`).then(res => {
     console.log(res.data)
+    loadList()
     $router.push({ name: 'quotes' })
   });
 }
 
-onMounted(async () => {
+const loadList = async () => {
   state.rows = await axios.get('/api/people').then(res => res.data.data);
+}
+
+
+onMounted(async () => {
+  loadList()
   // console.log(state.rows)
 
 })

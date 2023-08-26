@@ -16,7 +16,6 @@ class PersonController extends Controller
     use GetModelTrait;
     use CrudIndexTrait;
     use CrudShowTrait;
-    use CrudUpdateTrait;
     use CrudDeleteTrait;
     use MakeValidatorTrait;
 
@@ -36,6 +35,31 @@ class PersonController extends Controller
         $createdModel = $model->create($data);
         $createdModel->addresses()->attach($addressId);
         return response()->json($createdModel, 201);
+      }
+
+      public function update(Request $request, $modelId) {
+
+      
+        $data = $request->all();
+        $data['id'] = $modelId;
+        $data = collect($data)->forget('addresses')->all();
+        $model = $this->getModel($modelId);
+        $validator = $this->makeValidator($data, $model, $ignoreRequired = true);
+        if($validator->fails()) {
+          return response()->json([
+            'errors' => $validator->errors()->toArray()
+          ], 422);
+        }
+        
+        $saved = $model
+          ->fill($data)
+          ->save();
+        if($saved) {
+          return response()->json($model, 200);
+        } else {
+          return response()->json([ 'error' => 'not updated', 400]);
+        }
+        
       }
 
       function addAddress($personId, $addressId) {

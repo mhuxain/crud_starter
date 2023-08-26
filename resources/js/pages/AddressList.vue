@@ -59,6 +59,8 @@
 <script setup>
 import axios from 'axios';
 import { onMounted, reactive } from 'vue';
+import { useRouter, useRoute } from 'vue-router'
+const $router = useRouter()
 
 const columns = [
   { name: 'house_name', label: 'House name', field: 'house_name', sortable: true, align: 'left'},
