@@ -20,7 +20,7 @@
       option-value="id"
       emit-value
       map-options
-      v-bind="attrs('address_id', 'Address')"
+      v-bind="attrs('address_id', 'Address (Multiple can be added after create)')"
     >
     </qx-select>
   </q-form>
