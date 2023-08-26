@@ -39,7 +39,11 @@ class PersonController extends Controller
       }
 
       function addAddress($personId, $addressId) {
-        return Person::findOrFail($personId)->addresses()->attach($addressId);
+        return Person::findOrFail($personId)->addresses()->syncWithoutDetaching([$addressId]);
+      }
+
+      function removeAddress($personId, $addressId) {
+        return Person::findOrFail($personId)->addresses()->detach($addressId);
       }
 
 }

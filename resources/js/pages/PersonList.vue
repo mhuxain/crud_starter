@@ -1,13 +1,19 @@
 <template>
   <q-page class="q-pa-md">
-
     <q-table
       flat bordered
       title="People"
       :rows="state.rows"
       :columns="columns"
       row-key="id"
+      :rows-per-page-options="[15,50]"
     >
+
+    <template v-slot:top>
+        <h5 class="q-ma-sm q-pa-sm">People</h5>
+        <q-btn color="primary" :disable="loading" label="Add new" to="/people/create" />
+        
+      </template>
 
     <template v-slot:body-cell-address="props">
         <q-td

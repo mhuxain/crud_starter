@@ -7,7 +7,13 @@
       :rows="state.rows"
       :columns="columns"
       row-key="id"
+      :rows-per-page-options="[15,50]"
     >
+      <template v-slot:top>
+        <h5 class="q-ma-sm q-pa-sm">Address</h5>
+        <q-btn color="primary" :disable="loading" label="Add new" to="/addresses/create" />
+        
+      </template>
       <template v-slot:body-cell-action="props">
         <q-td
         :props="props"

@@ -1,8 +1,9 @@
 <template>
   <div>
+    <h5>Person View</h5>
     <ul>
       <li>Name: {{ state.formData.first_name}} {{ state.formData.last_name}}</li>
-      <li>{{ state.formData.dob}} </li>
+      <li>Date of Birth{{ state.formData.dob}} </li>
       <li>
         <a :href="state.formData.national_id_url" target="_blank">
         {{ state.formData.national_id}} 
@@ -11,7 +12,7 @@
     </ul>
 
     <hr />
-    Addresses
+    Addresses of  {{ state.formData.first_name}} {{ state.formData.last_name}}
     <div class="row">
     <qx-select
     class="col-6"
@@ -23,7 +24,10 @@
       map-options
 
     >
-    </qx-select><q-btn @click="addAddess()">Add</q-btn>
+    </qx-select>
+    <div class="q-pa-md">
+      <q-btn @click="addAddess()">Add</q-btn>
+    </div>
   </div>
     <ul>
       <li v-for="address in state.formData.addresses" :key="address.id">
@@ -49,12 +53,17 @@ const route = useRoute()
 const state = reactive({formData: {}, validationErrors: {}, newAddess: null});
 const refForm = ref(null)
 
-onMounted(async () => {
+const loadViewItem = async () => {
   if(route.params.id) {
     let resp = await axios.get(`/api/people/${route.params.id}`)
     console.log(resp)
     state.formData = reactive(resp.data)
   }
+  
+}
+
+onMounted(async () => {
+  loadViewItem()
 })
 
 const attrs = (fieldName, label) => {
@@ -74,7 +83,7 @@ const addAddess = async () => {
     state.validationErrors = e.response.data.errors
   })
   if(resp) {
-    router.push({ name: 'people' })
+    loadViewItem()
   }
 }
 
